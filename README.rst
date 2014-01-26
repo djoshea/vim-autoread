@@ -9,8 +9,8 @@ as long as you haven't modified the file since the last change, the file will be
 automatically updated to reflect the changes made on disk, as though you had pressed
 :e manually.
 
-This is a bundled form of this `script` in order to be fetchable by `Vundle`.
+This is a bundled form of this script_ in order to be fetchable by Vundle_.
 
-.. _`script`: http://vim.wikia.com/wiki/Have_Vim_check_automatically_if_the_file_has_changed_externally
-.. _`Vundle`: https://github.com/gmarik/vundle
+.. _script: http://vim.wikia.com/wiki/Have_Vim_check_automatically_if_the_file_has_changed_externally
+.. _Vundle: https://github.com/gmarik/vundle
 
