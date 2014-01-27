@@ -14,3 +14,10 @@ This is a bundled form of this script_ in order to be fetchable by Vundle_.
 .. _script: http://vim.wikia.com/wiki/Have_Vim_check_automatically_if_the_file_has_changed_externally
 .. _Vundle: https://github.com/gmarik/vundle
 
+
+Installation
+============
+
+Place in your vim plugins folder or add to your .vimrc::
+
+    Bundle 'djoshea/vim-autoread'
