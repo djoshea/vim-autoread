@@ -169,3 +169,6 @@ function! WatchForChanges(bufname, ...)
   "echo msg
   let @"=reg_saved
 endfunction
+
+autocmd VimEnter * WatchForChangesAllFile! 
+
