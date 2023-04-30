@@ -68,6 +68,8 @@ command! -bang WatchForChangesAllFile           :call WatchForChanges('*', {'tog
 "     (Presumably, having too much going on for those events could slow things down,
 "     since they are triggered so frequently...)
 function! WatchForChanges(bufname, ...)
+  let s:timer = 0 " init timer for checking for updates even when Buffer is not in focus 
+
   " Figure out which options are in effect
   if a:bufname == '*'
     let id = 'WatchForChanges'.'AnyBuffer'
@@ -81,6 +83,8 @@ function! WatchForChanges(bufname, ...)
     let id = 'WatchForChanges'.bufnr(a:bufname)
     let bufspec = a:bufname
   end
+
+
 
   if len(a:000) == 0
     let options = {}
@@ -96,6 +100,7 @@ function! WatchForChanges(bufname, ...)
   let disable     = has_key(options, 'disable')     ? options['disable']     : 0
   let more_events = has_key(options, 'more_events') ? options['more_events'] : 1
   let while_in_this_buffer_only = has_key(options, 'while_in_this_buffer_only') ? options['while_in_this_buffer_only'] : 0
+  let check_interval = has_key(options, 'check_interval') ? options['check_interval'] : 500
 
   if while_in_this_buffer_only
     let event_bufspec = a:bufname
@@ -142,6 +147,10 @@ function! WatchForChanges(bufname, ...)
         exec "au CursorMovedI ".event_bufspec . " :silent! checktime ".bufspec
       end
     augroup END
+    if s:timer != 0
+      call timer_stop(s:timer)
+    endif
+    let s:timer = timer_start(check_interval, {-> execute('silent! checktime ' . bufspec)}, {'repeat': -1})
     let msg = msg . 'Now watching ' . bufspec . ' for external updates...'
   end
 
